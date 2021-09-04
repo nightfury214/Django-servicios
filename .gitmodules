@@ -1,0 +1,3 @@
+[submodule "chatbot_simple_app"]
+	path = chatbot_simple_app
+	url = https://github.com/InoveProyectos/chatbot_simple_app.git
