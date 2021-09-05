@@ -1,6 +1,7 @@
 version: "3.3"
 # Este es un archivo de docker-compose.yml para configurar el uso de contenedores de software.
 
+# Agregamos una red personalizada para trabajar con otros servicios:
 networks:
   isolation-network:
     name: isolation-network
@@ -28,6 +29,7 @@ services:
     ports:
       # Enlazamos el puerto en el que trabaja Postgres, por defecto el 5432
       - 5432:5432
+    # Asignamos el servicio a la red personalizada
     networks: 
       - isolation-network
 
@@ -39,18 +41,19 @@ services:
     restart: always
     ports:
       - 8080:8080
+    # Asignamos el servicio a la red personalizada
     networks: 
       - isolation-network
     # depends_on indica que este servicio depende de que primero inicie "db"
     depends_on: ["db"]
 
-  modulo_7:
+  modulo_8:
     # build es el lugar desde donde toma los archivos para generar la imagen.
     build: .
     # Imágen a utilizar:
-    image: modulo_7
+    image: modulo_8
     # Nombre del container:
-    container_name: modulo_7
+    container_name: modulo_8
     # Comportamiento ante fallos y al iniciar el sistema:
     restart: always
     # Carpetas enlazadas:
@@ -65,6 +68,7 @@ services:
     # Control de consola:
     stdin_open: true
     tty: true
+    # Asignamos el servicio a la red personalizada
     networks: 
       - isolation-network
     command: python marvel/manage.py runserver 0.0.0.0:8000

@@ -168,4 +168,6 @@ VERDE = "\033[;32m"
 LOGIN_REDIRECT_URL = '/e-commerce/index'
 LOGIN_URL = '/e-commerce/'
 
-
+# NOTE: Chatbot:
+CHATBOT_URL = "chatbot_inove"
+CHATBOT_PORT = '5000'

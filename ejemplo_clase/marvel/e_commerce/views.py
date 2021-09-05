@@ -283,8 +283,8 @@ class BootstrapSignupView(TemplateView):
 
 # NOTE: Chatbot Views:
 
-class ChatbotView(TemplateView):
+class HelpView(TemplateView):
     '''
     Vista para Template de registro de usuario con estilo de bootstrap.
     '''
-    template_name = 'e-commerce/chatbot.html'
+    template_name = 'e-commerce/help.html'

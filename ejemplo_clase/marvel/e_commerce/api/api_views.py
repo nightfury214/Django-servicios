@@ -41,6 +41,9 @@ from rest_framework.parsers import JSONParser
 import requests
 import json
 
+# Importamos la dirección del chatbot:
+from marvel.settings import CHATBOT_URL, CHATBOT_PORT
+
 mensaje_headder = '''
 Ejemplo de header:
 
@@ -184,7 +187,7 @@ class PostWishListAPIView(CreateAPIView):
 
 # NOTE: APIs utilizadas por el chatbot
 
-class TestBotAPIView(APIView):
+class ChatbotAPIView(APIView):
     '''
     API para probar la respuesta del bot y el funcionamiento de los servicios.
     '''
@@ -196,17 +199,11 @@ class TestBotAPIView(APIView):
         '''
         API para probar la respuesta del bot y el funcionamiento de los servicios.
         '''
-        # return Response({'hola':10})
-        URL_BASE = "chatbot_inove"
-        PORT = '5000'
         try:
-            
             message = request.GET.get('message')
-
             print('message: ',message)
-            headers = {"content-type": "application/json"}
             data = {"instances": f'{message}'}
-            json_response = requests.post(f'http://{URL_BASE}:{PORT}/predict', data=data)
+            json_response = requests.post(f'http://{CHATBOT_URL}:{CHATBOT_PORT}/predict', data=data)
             result = json.loads(json_response.text)['predictions']
             print(result)
             return Response(result)

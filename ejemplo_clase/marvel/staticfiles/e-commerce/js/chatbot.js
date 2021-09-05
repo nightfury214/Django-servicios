@@ -1,31 +1,36 @@
-/* Meme */
+/*
+Copyright (c) 2021 by Zeno Rocha (https://codepen.io/zenorocha/pen/eZxYOK)
 
-var welcomeMessage = '¡Bienvenido!';
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+*/
+
+// Variables globales:
+
+var welcomeMessage = "¡Bienvenido!";
 var welcome = document.querySelector("#welcome");
-
 welcome.innerHTML = welcomeMessage;
 
-/* Time */
-
+// De tiempo. . .
 var deviceTime = document.querySelector(".status-bar .time");
 var messageTime = document.querySelectorAll(".message .time");
-
 deviceTime.innerHTML = moment().format("h:mm");
 
-setInterval(function () {
-  deviceTime.innerHTML = moment().format("h:mm");
-}, 1000);
-
-for (var i = 0; i < messageTime.length; i++) {
-  messageTime[i].innerHTML = moment().format("h:mm A");
-}
-
-/* Message */
+// Del mensaje . . .
 
 var form = document.querySelector(".conversation-compose");
 var conversation = document.querySelector(".conversation-container");
 
+// Formato de tiempo
+setInterval(function () {
+  deviceTime.innerHTML = moment().format("h:mm");
+}, 1000);
+
+// Este método escucha el botón submit y ejecuta la función newMessage
 form.addEventListener("submit", newMessage);
 
 // Esta función maneja los mensajes recibidos por el cliente y hace el request al chatbot
@@ -35,29 +40,32 @@ function newMessage(e) {
   if (input.value) {
     //   input.value es el string que envió el cliente
     var message = buildMessage(input.value);
+    // Esta es la url a la que le vamos a hacer el request:
+    var url = "/e-commerce/chatbot?message=" + input.value;
     conversation.appendChild(message);
     animateMessage(message);
-    // Acá hay que hacer el request
-    var url = "/e-commerce/chatbot/test?message="+input.value;
+    // El request se realiza con "fetch" y luego con la información
+    // se construye la respuesta del bot en la pantalla
     fetch(url)
       .then((response) => response.json())
-      .then((data)=> responseMessage(data.message));
+      .then((data) => responseMessage(data.message));
   }
-
+  // Limpiamos el input y hacemos scroll al final de la conversación:
   input.value = "";
   conversation.scrollTop = conversation.scrollHeight;
 
   e.preventDefault();
 }
 
-function responseMessage(text){
-    message = buildResponse(text);
-    conversation.appendChild(message);
-    animateMessage(message);
-    conversation.scrollTop = conversation.scrollHeight;
+// Función que construye en la pantalla el mensaje de respuesta al bot
+function responseMessage(text) {
+  message = buildResponse(text);
+  conversation.appendChild(message);
+  animateMessage(message);
+  conversation.scrollTop = conversation.scrollHeight;
 }
 
-// Esta función construye el mensaje del cliente en la pantalla
+// Esta función construye en la pantalla el mensaje del cliente
 function buildMessage(text) {
   var element = document.createElement("div");
 
@@ -78,6 +86,7 @@ function buildMessage(text) {
   return element;
 }
 
+// Esta función agrega el tilde azul y el timestamp del mensaje.
 function animateMessage(message) {
   setTimeout(function () {
     var tick = message.querySelector(".tick");
@@ -88,7 +97,6 @@ function animateMessage(message) {
 // Esta función construye la respuesta recibiendo como parámetro el texto.
 function buildResponse(text) {
   var element = document.createElement("div");
-
   element.classList.add("message", "received");
   element.innerHTML =
     text +
@@ -98,3 +106,4 @@ function buildResponse(text) {
 
   return element;
 }
+

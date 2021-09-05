@@ -41,7 +41,7 @@ urlpatterns = [
     # NOTE: Ejemplos de Bootstrap HTML:
     path('bootstrap-login', BootstrapLoginUserView.as_view(), name='loginbootstrap'),
     path('bootstrap-signup', BootstrapSignupView.as_view(), name='signupbootstrap'),
-    path('chatbot', ChatbotView.as_view()),
+    path('help', HelpView.as_view(),name='help') ,
 
 ]
 urlpatterns += INDEX_PATTERNS

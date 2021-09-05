@@ -24,5 +24,5 @@ urlpatterns = [
     path('Wish/post', PostWishListAPIView.as_view()),
 
     # Chatbot API View:
-    path('chatbot/test', TestBotAPIView.as_view()),
+    path('chatbot', ChatbotAPIView.as_view(), name='chatbot'),
 ]
