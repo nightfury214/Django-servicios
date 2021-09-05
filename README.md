@@ -5,7 +5,7 @@ Web: [Inove](http://inove.com.ar)
 
 ---
 
-# Django - Diseño y flujo de aplicación
+# Django - Servicios
 En este repositorio encontrarán los siguientes archivos:
 
 __Ejemplos que el profesor mostrará en clase__\
@@ -26,7 +26,7 @@ Siempre en el mismo directorio del archivo *docker-compose.yml*
 
 ### 2. Correr la línea de comandos dentro del contenedor
 
-**$** `docker exec -i -t modulo_7 bash`
+**$** `docker exec -i -t modulo_8 bash`
 
 Nos va a devolver a nuestra consola, una consola dentro del contenedor de software.
 
@@ -57,7 +57,7 @@ Tan solo con el comando `ctrl + c`  se detiene la ejecución de nuestro contened
 
 Una forma alternativa es con el siguiente comando en la terminal del host:
 
-**$** `docker stop modulo_7`  
+**$** `docker stop modulo_8`  
 
 O también puede ser con docker-compose:
 Tenemos que estar en la carpeta que contiene el archivo *docker-compose.yml* y hacer:
