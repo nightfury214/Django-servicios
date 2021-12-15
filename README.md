@@ -20,6 +20,10 @@ __Ejemplos que el profesor mostrará en clase__\
 
 # Comandos útiles 🐋
 
+### 0. Descargar el submodulo de chatbot
+**$** `git submodule update --init --recursive`
+**$** `cd chatbot_simple_app && git checkout main`
+
 ### 1. Correr el proyecto
 Siempre en el mismo directorio del archivo *docker-compose.yml*
 **$** `docker-compose up`
