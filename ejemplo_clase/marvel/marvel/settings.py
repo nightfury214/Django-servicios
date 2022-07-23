@@ -169,5 +169,6 @@ LOGIN_REDIRECT_URL = '/e-commerce/index'
 LOGIN_URL = '/e-commerce/'
 
 # NOTE: Chatbot:
-CHATBOT_URL = "chatbot_inove"
-CHATBOT_PORT = '5000'
+CHATBOT_HOSTNAME = "chatbot_inove"
+CHATBOT_PORT = '8501'
+CHATBOT_ENDPOINT = "v1/models/chatbot:predict"

@@ -42,7 +42,7 @@ import requests
 import json
 
 # Importamos la dirección del chatbot:
-from marvel.settings import CHATBOT_URL, CHATBOT_PORT
+from marvel.settings import CHATBOT_HOSTNAME, CHATBOT_PORT, CHATBOT_ENDPOINT
 
 mensaje_headder = '''
 Ejemplo de header:
@@ -202,11 +202,24 @@ class ChatbotAPIView(APIView):
         try:
             message = request.GET.get('message')
             print('message: ',message)
-            data = {"instances": f'{message}'}
-            json_response = requests.post(f'http://{CHATBOT_URL}:{CHATBOT_PORT}/predict', data=data)
-            result = json.loads(json_response.text)['predictions']
-            print(result)
-            return Response(result)
+            payload = {"instances": [[message]]}
+            data = json.dumps(payload)
+
+            url = f'http://{CHATBOT_HOSTNAME}:{CHATBOT_PORT}/{CHATBOT_ENDPOINT}'
+
+            headers = {
+                'Content-Type': 'application/json'
+            }
+
+            resp = requests.post(url, headers=headers, data=data)
+            if resp.ok == True:
+                result = json.loads(resp.text)['predictions'][0]
+                print(result)
+                return Response(result)
+            else:
+                error = resp.text
+                print('Error: ',error)
+                return Response({'result':error})
         except Exception as error:
             print('Error: ',error)
             return Response({'result':error})    

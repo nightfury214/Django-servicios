@@ -48,7 +48,7 @@ function newMessage(e) {
     // se construye la respuesta del bot en la pantalla
     fetch(url)
       .then((response) => response.json())
-      .then((data) => responseMessage(data.message));
+      .then((data) => responseMessage(data));
   }
   // Limpiamos el input y hacemos scroll al final de la conversación:
   input.value = "";
